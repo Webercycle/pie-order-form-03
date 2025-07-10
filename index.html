@@ -182,6 +182,35 @@
         updateTotalPrice();
       }
 
+function doPost(e) {
+  const data = JSON.parse(e.postData.contents);
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Form Responses 1");
+
+  data.pies.forEach(pie => {
+    sheet.appendRow([
+      new Date(),
+      data.name,
+      data.phone,
+      pie.size,
+      pie.flavor,
+      pie.prep,
+      pie.quantity,
+      data.notes
+    ]);
+  });
+
+  return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT)
+    .setHeader("Access-Control-Allow-Origin", "*");
+}
+
+function doOptions(e) {
+  return ContentService.createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+    .setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+
       sizeEl.addEventListener('change', () => {
         updateFlavorOptions();
         refreshPricePrep();
