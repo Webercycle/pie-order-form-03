@@ -336,10 +336,21 @@
             });
 
             // TODO: Replace this URL with your actual Google Apps Script Web App URL
-            fetch('https://script.google.com/macros/s/AKfycbxQB--QMVBZ-iLiKvMaaCdY04Q-MFFzXdZ1ezmje_O3iXk6cK99TaulJ_6QXUhOZw1XRw/exec', {
-                method: 'POST',
-                body: JSON.stringify({ name, phone, pies, notes }),
-                headers: {'Content-Type': 'application/json'}
+            fetch('https://script.google.com/macros/s/AKfycbzJuBK5CfTiCpvlmJPbFCz-eZac8liD_B428DuaCW3Ivz3OqJakHP5fePCYWCCCwBOi0g/exec', {
+  		method: 'POST',
+  		headers: {
+   		 'Content-Type': 'application/json'
+		 },
+		 body: JSON.stringify({ name, phone, pies, notes })
+		})
+		.then(response => response.text())
+		.then(data => {
+		  alert(data);
+		})
+		.catch(error => {
+		  alert("There was a problem submitting your order: " + error.message);
+		});
+
             })
             .then(r => r.text())
             .then(msg => {
